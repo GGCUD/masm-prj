@@ -1,15 +1,15 @@
 #include <stdio.h>
 
 int main() {
-    short array[] = { -3, 2, -6, 4, -9, 6, -12, 8, -15, 10 };
+    int array[] = { -3, 2, -6, 4, -9, 6, -12, 8, -15, 10 };
     int arraySize = sizeof(array) / sizeof(short);
 
     __asm {
-        mov esi, offset array
+        mov esi,  array
         mov ecx, arraySize
 
         loopStart :
-        cmp esi, offset array + (arraySize - 1) * 2
+        cmp esi, [array + (arraySize - 1) * 2]
             je loopEnd
 
             mov ax, [esi]
@@ -32,11 +32,11 @@ int main() {
             loop loopStart
 
             loopEnd :
-        mov esi, offset array
+        mov esi, array
             mov ecx, arraySize
 
             loopStart2 :
-        cmp esi, offset array + (arraySize - 1) * 2
+        cmp esi, [array + (arraySize - 1) * 2]
             je loopEnd2
 
             mov ax, [esi]
